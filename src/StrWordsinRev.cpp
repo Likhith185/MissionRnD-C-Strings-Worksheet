@@ -11,21 +11,29 @@ NOTES: Don't create new string.
 */
 #include <Stdio.h>
 #include <string.h>
-
-void str_words_in_rev(char *input, int len){
-	int i, j,start, end;
-	len = strlen(input);
-	end = len - 1;
-	for (i = len - 1; i >= 0; i--)
+void reverseString(char* str, int s ,int e)
+{
+	char temp;
+	while (s<e)
 	{
-		if (input[i] == 32 || i == 0)
-		{
-			if (i == 0)
-				start = 0;
-			else
-				start = i + 1;
-			for (j = start; j <= end; j++)
-			end = i - 1;
+		temp = str[s];
+		str[s] = str[e];
+		str[e] = temp;
+		s++;
+		e--;
+	}
+}
+void str_words_in_rev(char *input, int len){
+	int i, j = -1;
+	reverseString(input, 0, len - 1);
+	for (i = 0; i <= len; i++){
+		if (input[i] != ' '&&j == -1)
+			j = i;
+		if (input[i] == ' ' || input[i] == '\0'){
+			if (j != -1){
+				reverseString(input, j, i - 1);
+				j = -1;
+			}
 		}
 	}
 }
